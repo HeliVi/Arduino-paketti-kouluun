@@ -1,0 +1,53 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+\input{arduino_breadboard}
+\begin{document}
+
+\begin{tikzpicture}[scale=0.5]
+\pic[scale=0.2] at (0,0) {myarduino};
+\BREADBOARD(20,30){30};
+\coordinate[right=0.5] (tmp) at (E7);
+
+%\node[draw,minimum height=2,color=white,fill=black] (t1) at (tmp) {\rotatebox[]{-90}{TMP}};
+%\draw[fill=black] (t1.north east) to[bend left=70] (t1.south east);
+%\draw[thick] (t1.north west)++(0,-0.1)  to[short,-*] (E6);
+%\draw[thick] (t1.west) to[short,-*] (E7);
+%\draw[thick] (t1.south west)++(0,0.1) to[short,-*] (E8);
+
+%\draw[red,wire] (A6) to[short,*-*] (l-6);
+%\draw[black,wire] (A8) to[short,*-*] (lg8);
+
+%\draw[green,wire] (A7) to[short,*-*] (ArA0);
+
+%% LEDit + vastukset
+%\draw (C16) to[R,a=$220\Omega$,*-*] (lg16);
+%\draw (D13) to[led,l=punainen,*-*,fill=red] (D16);
+%\draw[black,wire] (ArGND2) -- ++(4,-9) to[short,-*] (lg30);
+%\draw[wire,red] (A13) to[short,*-*] (Ar7);
+
+%\draw (C20) to[R,a=$220\Omega$,*-*] (lg20);
+%\draw (D17) to[led,l=keltainen,*-*,fill=yellow] (D20);
+%\draw[wire,yellow] (A17) to[short,*-*] (Ar6);
+
+\draw (H4) to[photodiode,*-*] (H7);
+\draw (I7) to[R=10k$\Omega$,*-*] (rg7);
+\draw[red,wire] (J4) to[short,*-*] (r+4);
+
+\draw[red,wire] (l-2) to[short,*-*] (r+1);
+\draw[black,wire] (lg29) to[short,*-*] (rg30);
+
+\draw[green,wire] (G7) to[short,*-*] (ArA1);
+
+
+%\draw[wire,red] (l-10) to[short,*-*] (A10);
+%\draw[wire,black] (lg19) to[short,*-*] (A19);
+\draw[black,wire] (ArGND2) -- ++(4,-9) to[short,-*] (lg30);
+\draw[red,wire] (l-1) to[short,*-o] (Ar5V);
+\end{tikzpicture}
+
+
+\end{document}

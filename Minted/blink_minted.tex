@@ -1,0 +1,26 @@
+\documentclass[preview]{standalone}
+\usepackage{minted}
+\input{ArduinoLanguage.tex}  
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+\begin{lstlisting}[language=Arduino]  
+ /* Blink sytyttaa ja sammuttaa ledin sekunnin valein*/\\
+ // Pinniin 13 on kytketty ledi Arduinolevylla \\
+ // SETUP ajetaan, kun ohjelma kaynnistetaan\\
+ void setup() \{\\
+ // asetetaan pinni 13 OUTPUT-navaksi.\\
+ pinMode(13, OUTPUT);\\
+ \}\\
+ // silmukkaa LOOP pyoritetaan, kunnes levylta katkaistaan virta:\\
+ void loop() \{\\
+ digitalWrite(13, HIGH); // ledi paalle (HIGH: 5 voltin jannite)\\
+ delay(1000);	// odotetaan sekunti\\
+ digitalWrite(13, LOW); // ledi pois paalta (LOW: 0 voltin jannite) \\
+delay(1000);	// odotetaan sekunti\\   
+\}
+    
+\end{lstlisting}
+
+
+\end{document}

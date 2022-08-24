@@ -1,0 +1,20 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+\input{arduino_breadboard}
+\begin{document}
+\begin{tikzpicture}[scale=0.5]
+\BREADBOARD (0,0) {30};
+\draw (C10) to[R=$220\Omega$,*-*] (C15);
+\draw (B15) to[led,*-*] (B19);
+
+\draw[wire,red] (l-10) to[short,*-*] (A10);
+\draw[wire,black] (lg19) to[short,*-*] (A19);
+
+\end{tikzpicture}
+
+
+\end{document}

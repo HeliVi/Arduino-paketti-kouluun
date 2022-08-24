@@ -1,0 +1,43 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+\input{arduino_breadboard}
+\begin{document}
+
+\begin{tikzpicture}[scale=0.5]
+\pic[scale=0.2] at (0,0) {myarduino};
+\BREADBOARD(20,30){30};
+\draw (C16) to[R,a=$220\Omega$,*-*] (lg16);
+\draw (D13) to[led,l=punainen,*-*,fill=red] (D16);
+\draw[black,wire] (ArGND2) -- ++(4,-9) to[short,-*] (lg30);
+\draw[wire,red] (A13) to[short,*-*] (Ar7);
+
+\draw (C20) to[R,a=$220\Omega$,*-*] (lg20);
+\draw (D17) to[led,l=keltainen,*-*,fill=yellow] (D20);
+\draw[wire,yellow] (A17) to[short,*-*] (Ar4);
+
+\draw (C24) to[R=$220\Omega$,*-*] (lg24);
+\draw (D21) to[led,l=vihreä,*-*,fill=green] (D24);
+\draw[wire,green] (A21) to[short,*-*] (Ar3);
+
+% Painonappi
+\draw[thick,fill=hopea] (E2.east) rectangle (F4.west) coordinate[pos=0.5] (Y);
+\draw[fill=black] (Y) circle (0.5);
+\draw (E2.east) to[short,*-*] (E2);
+\draw (E4.east) to[short,*-*] (E4);
+\draw (F4.west) to[short,*-*] (F4);
+\draw (F2.west) to[short,*-*] (F2);
+% Vastus
+\draw (C4) to[R=$220\Omega$,*-*] (lg4);
+% Kayttojannite
+\draw[red,wire] (l-1) to[short,*-*] (Ar5V);
+% Painonapin kytkentä
+\draw[blue,wire] (l-2) to[short,*-*] (A2);
+\draw[blue,wire] (H4) to[short,*-]  (H28) to[short,-*] (Ar2);
+\end{tikzpicture}
+
+
+\end{document}

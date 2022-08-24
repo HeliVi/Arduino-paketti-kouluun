@@ -1,0 +1,22 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+\input{arduino_breadboard}
+\begin{document}
+
+\begin{tikzpicture}[scale=0.5]
+\BREADBOARD (0,0) {10};
+
+\draw (B2) to[R,*-*] (B6);
+\draw (D10) to[R,*-*] (D6);
+\draw[blue,wire] (A2) to[short,*-o] ++(-7,0) node[left,black] {A};
+\draw[blue,wire] (A10) to[short,*-o] ++(-7,0) node[left,black] {B};
+\end{tikzpicture}
+
+
+
+
+\end{document}

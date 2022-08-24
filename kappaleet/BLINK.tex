@@ -1,0 +1,71 @@
+\section{Ensimmäinen ohjelma BLINK}
+Ohjelma vilkuttaa kortilla jo valmiiksi olevaa digitaaliseen pinniin 13 kytkettyä lediä. Mitään kytkentöjä ei koekytkentälevylle tarvitse tehdä.
+
+\textbf{Valmistele tietokoneella}
+\begin{enumerate}
+    \item Avaa Arduino-ohjelma tietokoneelle. Ohjelmointiympäristö aukeaa.
+    \item Avaa editoriohjelmaan tiedosto File/Tiedosto $\rightarrow$ Examples/Esimerkit $\rightarrow$ Basics $\rightarrow$ Blink. Vaihtoehtoisesti voit kirjoittaa ohjelman editori-ikkunaan (ks. kohta BLINK-koodi).
+\end{enumerate}
+\textbf{Lataa ohjelma Arduinolle}
+\begin{enumerate}
+    \item[3.] Kytke Arduinokortti USB-johdolla tietokoneeseen.
+\begin{itemize}
+    \item Tarkista, että tietokone tunnistaa Arduinon:
+    \begin{itemize}
+        \item Valikossa Työkalut $\rightarrow$ Kortti $\rightarrow$ Arduino/Genuino Uno,
+        \item Työkalut $\rightarrow$ Portti $\rightarrow$ (jokin COM- portti valittuna, yleensä COM3 tai  suurempi).
+    \end{itemize}
+    
+\end{itemize}
+    \item[4.] Lataa ohjelma Arduinolle työkalupalkin nuolinappulasta.
+    \begin{itemize}
+        \item Arduino saattaa samalla kysyä talletatko tiedoston.
+        \begin{itemize}
+            \item Tiedostoa ei ole pakkoa tallettaa, joten voit painaa nappulaa ”Peruuta”. 
+        \end{itemize}
+    \end{itemize}
+    \item[5.] Ladattu ohjelma vilkuttaa pinniin 13 kytkettyä lediä.
+    \begin{itemize}
+        \item BLINK-ohjelma on myöhemminkin käyttökelpoinen erityisesti silloin, kun täytyy nopeasti kokeilla, toimiiko yhteys Arduinolevylle oikein ja onko levy kunnossa vai viallinen.
+    \end{itemize}
+\end{enumerate}
+\begin{fminipage}{10cm}
+\begin{tabular}{l}
+ /* Blink Sytyttää ja sammuttaa lediä sekunnin välein*/     \\
+ // Pinniin 13 on kytketty ledi Arduinolevyllä \\
+ // SETUP ajetaan, kun ohjelma käynnistetään\\
+ void setup() \{\\
+ // asetetaan pinni 13 OUTPUT-navaksi.\\
+ pinMode(13, OUTPUT);\\
+ \}\\
+ // silmukkaa LOOP pyöritetään, kunnes levyltä katkaistaan virta:\\
+ void loop() \{\\
+ digitalWrite(13, HIGH); // ledi päälle (HIGH: 5 voltin jännite)\\
+ delay(1000);	// odotetaan sekunti\\
+ digitalWrite(13, LOW); // ledi pois päältä (LOW: 0 voltin jännite) \\
+delay(1000);	// odotetaan sekunti\\   
+\}
+\end{tabular}
+
+
+
+
+\end{fminipage}
+
+\begin{lstlisting}[language=Arduino]  
+ /* Blink sytyttaa ja sammuttaa ledin sekunnin valein*/\\
+ // Pinniin 13 on kytketty ledi Arduinolevylla \\
+ // SETUP ajetaan, kun ohjelma kaynnistetaan\\
+ void setup() \{\\
+ // asetetaan pinni 13 OUTPUT-navaksi.\\
+ pinMode(13, OUTPUT);\\
+ \}\\
+ // silmukkaa LOOP pyoritetaan, kunnes levylta katkaistaan virta:\\
+ void loop() \{\\
+ digitalWrite(13, HIGH); // ledi paalle (HIGH: 5 voltin jannite)\\
+ delay(1000);	// odotetaan sekunti\\
+ digitalWrite(13, LOW); // ledi pois paalta (LOW: 0 voltin jannite) \\
+delay(1000);	// odotetaan sekunti\\   
+\}
+    
+\end{lstlisting}

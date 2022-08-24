@@ -1,0 +1,36 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+\input{arduino_breadboard}
+\begin{document}
+
+\begin{tikzpicture}[scale=0.5]
+\pic[scale=0.2] at (0,0) {myarduino};
+\BREADBOARD(20,30){30};
+% Käyttöjännitteet
+\draw[black,wire] (ArGND2) -- ++(4,-9) to[short,-*] (lg30);
+\draw[red,wire] (l-1) to[short,*-o] (Ar5V);
+
+% Potentiometri
+\draw[thick,fill=blue] (D27.east) rectangle (F29.west) coordinate[pos=0.5] (Y);
+\draw[fill=white] (Y) circle (0.5);
+\draw (D27.east) to[short,*-*] (D27);
+\draw (D29.east) to[short,*-*] (D29);
+\draw (F28.west) to[short,*-*] (F28);
+\draw[red,wire] (l-27) to[short,*-*] (A27);
+\draw[black,wire] (lg28) to[short,*-*] (B29);
+
+% Vastus 220
+\draw (F16) to[R=220$\Omega$,*-*] (l-16); 
+
+% Käyttikset
+\draw[black,wire] (lg29) to[short,*-*] (F30);
+\draw[black,wire] (lg26) to[short,*-*] (F26);
+\draw[black,wire] (lg15) to[short,*-*] (F15);
+\end{tikzpicture}
+
+
+\end{document}

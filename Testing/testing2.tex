@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+\usepackage{tasks,pgffor,tikz,xsim,multicol}
+\usepackage{etoolbox}
+\settasks{
+    counter-format = (tsk[a]),
+    label-format = \itshape,
+    item-indent = 0em,
+    label-offset=.6em,
+    label-align=right,
+    before-skip = 0pt,
+    after-item-skip=0pt
+}
+
+\newcommand\encircle[2][]{% optional argument allows for fill
+    \tikz[baseline=(X.base)]
+    \node (X) [draw, shape=circle, inner sep=-1pt, #1] {\strut$#2$};
+}
+
+% mcqoptions environment is seemingly dummy only in this MWE. 
+% In actual document it does a lot more.
+\newenvironment{mcqoptions}{
+    \tasks(4)
+}{
+    \endtasks
+}
+
+\setlength{\columnseprule}{0.4pt}
+  \newif\ifcorrecting
+  \correctingtrue% comment out to not print solutions
+  \ExplSyntaxOn
+  \newcommand{\correct}{%
+    $\bullet$%
+    \ifcorrecting%
+      \l_add_to_sequence {\theexercise} {\int_use:N \g__tasks_int}%
+    \fi%
+  }
+
+\newcommand{\answerspace}[1]{%
+    \foreach \x in {1,...,#1} {%
+        \noindent\hspace*{2em}\llap{[\textbf{\x}]}\space
+        \foreach \y in {1,2,3,4} {% answers are stored as integers
+          \l_encircle {\x} {\y}\,% circle the node, possibly with fill
+        }\hfill\newline%
+    }%
+}
+
+% add #2 to the sequence g_correct_#1_seq, creating it if it does not exist
+\cs_new_protected:Npn \l_add_to_sequence #1#2 {
+  \seq_if_exist:cF {g_correct_#1_seq} {\seq_new:c {g_correct_#1_seq} }
+  \seq_gput_right:cx {g_correct_#1_seq} {#2}
+}
+% test if correct and then draw the node using \encircle
+\cs_new_protected:Npn \l_encircle #1#2 {
+   \seq_if_in:coTF {g_correct_#1_seq} {#2}
+       { \encircle[fill=blue!10]{\int_to_alph:n{#2}} }
+       { \encircle{ \int_to_alph:n{#2}} }
+}
+\ExplSyntaxOff
+
+% If the following line is not commented out, mark all correct answers by blackening the corresponding circle.
+
+\begin{document}
+    One or more options of the following questions may be correct.
+    \begin{multicols}{2}
+        \begin{exercise}
+            Why o why
+            \begin{mcqoptions}
+                \task \correct $ \frac{e+2}{e} $ \task $ \frac{e-2}{e} $ \task $ \frac{2}{e} $ \task $ \frac{2-e}{e} $
+            \end{mcqoptions}
+        \end{exercise}
+
+        \begin{exercise}
+            For a reaction in an aqueous medium at a given pH of volume
+            \begin{mcqoptions}
+                \task q \task \correct w \task e    \task \correct r
+            \end{mcqoptions}
+        \end{exercise}
+
+        \begin{exercise}
+            $\frac{\tan x-\log(1+x)+x^2}{x^2} =$
+            \begin{mcqoptions}
+                \task \correct 3/2 \task \correct 1/2 \task 5/2 \task 1
+            \end{mcqoptions}
+        \end{exercise}
+
+        \begin{exercise}
+            How much heat is gained by the environment in the process?
+            \begin{mcqoptions}
+                \task 1170 \task 5080 \task 2350 \task \correct 3690
+            \end{mcqoptions}
+        \end{exercise}
+    \end{multicols}
+    \vspace{.5cm}
+    \hrule
+    \vspace{.1cm}
+    \textbf{Mark your answers below}
+    \vspace{.1cm}
+    \hrule
+    \begin{multicols}{2}
+        \answerspace{4}
+    \end{multicols}
+\end{document}

@@ -1,0 +1,55 @@
+\section{Virtapiiri}
+Virtapiiri on virtalähteiden, johtimien ja sähkölaitteiden muodostama sähkövirran kulkureitti. Kun virtapiiri on suljettu sen läpi kulkee sähkövirta.
+
+\subsection*{Jännite}
+Sähköinen jännite on kahden pisteen välinen sähköinen potentiaaliero. Jännitteen yksikkö on voltti, jonka symboli on V.
+\subsection*{Sähkövirta}
+Sähkövirta on sähkövarausten liikettä. Sähkövirta on suure. Sähkövirran yksikkö on ampeeri, joka symboli on A. Yksi ampeeri on yhden coulombin (C) suuruisen varauksen kulku johteen poikkipinnan läpi yhden sekunnin (s) aikana. 1 A = 1 C/s.
+
+\subsection*{Resistanssi}
+Resistanssi eli sähköinen vastus on suure, jonka tunnus on R. Resistanssi kuvaa johtimen tai muun sähköisen piiriosan kykyä vastustaa sähkövirtaa. Resistanssin mittayksikkö SI-järjestelmässä on ohmi, jonka tunnus on $\Omega$. Piirinosan resistanssi on yksi ohmi virtapiirissä, missä kahden pisteen välinen jännite on 1 voltti ja sähkövirta on yhden ampeerin.
+($\Omega$ = V/A).
+\subsection*{Teho}
+Teho on suure, jonka tunnus on P. Teholla kuvataan tehdyn työn tai käytetyn energian määrää aikayksikössä. Tehon yksikkö on watti, jonka tunnus on W. Sähköinen teho on sähkövirran voimakkuuden  ja jännitteen tulo.
+\subsection*{Tasavirta}
+Tasavirta kulkee virtapiirissä koko ajan samansuuntaisesti. Sähkövirran voimakkuutta ilmaistaan voltteina. Akut ja paristot tuottavat tasavirtaa.
+
+\subsection*{Vaihtovirta}
+Vaihtovirta on sähkövirtaa, jonka suunta vaihtelee. Sähkövirran voimakkuutta ilmaistaan voltteina, sähkövirran suunnan muutostaajuutta kuvataan hertseillä. Suomessa kotitalouksissa käytettävä verkkovirta on sinimuotoista vaihtovirtaa, jonka vaihejännitteen tehollisarvo on nimellisesti 230 volttia ja taajuus 50 hertsiä.
+
+\begin{tcolorbox}[colback=blue!10,colbacktitle=purple!90,title=\section*{Suureet}]
+
+\begin{tabular}{ l{2.5cm}  c{1.5cm} c{2cm} c{1.5cm} r{3cm}   }
+\textbf{ Mitattava suure}    &   \textbf{Suureen tunnus}    &   \textbf{Yksikön nimi}  & \textbf{Yksikön tunnus} & \textbf{Laskukaava}  \\
+% \hline
+
+sähkövirta  &   \textit{I}   &    ampeeri    &    A  &  $\displaystyle I=\frac{U}{R} $ \\
+jännite &    \textit{U}  &	voltti  &	V   &	$\displaystyle U=R \cdot I $    \\
+resistanssi & 	\textit{R }  &	ohmi    &  $\Omega$   &	$\displaystyle  R=\frac{U}{I}  $  \\
+teho    &   \textit{P}   &	watti   & 	W   &	$P=U\cdot I$     \\
+energia &	\textit{E}    &	joule   &	  J &	 $E=P\cdot t^*$  
+\end{tabular}
+
+*$t$ = aika
+
+\end{tcolorbox}
+
+\subsection*{Esimerkkejä}
+\subsubsection*{Esimerkki 1: Sopiva vastus LED-valon kanssa}
+
+Arduino Unoa käytetään virtalähteenä. Virtapiiriin kytketään yksi led-valo. Jotta led-valo toimisi toivotusti tulee ledin kanssa sarjaan kytkeä
+sarjavastus, joka rajoittaa ledin läpi kulkevan sähkövirran noin 10-20 milliampeeriin (mA). Laske ja valitse sopiva vastus virtapiiriin.
+
+Hehkuvan led-valon napojen välillä vaikuttaa ns. kynnysjännite, noin 1,5 V. Arduino Unon digitaalisessa pinnissä on 5
+voltin jännite. Vastuksen napojen välinen jännite on siis (5 - 1,5) V = 3,5 V. Kun jännite ja sähkövirta
+tiedetään, voidaan sopivan vastuksen resistanssin arvo laskea:
+
+\begin{align*}
+    R = \frac{U}{I} = \frac{3{,}5\text{V}}{0{,}02\text{A}} = 175\Omega
+\end{align*}
+
+\textbf{Ratkaisu:} Vastukseksi valitaan lähin vastus, 220 $\Omega$. 
+
+\section{Ylesimittarin käyttö}
+\subsection*{Vastuksen mittaaminen}
+Ohje kuinka yleismittarilla mitataan vastuksen resistanssi.

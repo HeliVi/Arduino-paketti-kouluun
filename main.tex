@@ -1,0 +1,306 @@
+\documentclass[finnish,oneside]{book}
+\usepackage[T1]{fontenc}
+\usepackage[bottom=3cm]{geometry}
+\usepackage{times}
+\usepackage{moreverb}
+\usepackage[sfdefault]{roboto}
+\usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+%\usepackage{minted}
+\usepackage[final]{pdfpages}
+\usepackage{lscape}
+\usepackage{array}%taulukkoon saa eri korkeuksiin soluun p,m,b
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = black, %Colour of internal links
+  citecolor   = black %Colour of citations
+}
+
+
+\setlength{\parindent}{0pt}          % Kappaleen alun sisennys (0pt, ts. ei sisennystä)
+\setlength{\parskip}{3mm plus0.5mm minus0.5mm}
+%\usepackage[utf8]{inputenc}		%imputenc-vaihtoehto 2, toimii paremmin ShareLaTeX-sivulla
+%\usepackage[finnish]{babel}
+\linespread{1.24} %riviväli 1.5
+%\usepackage[T1]{fontenc}
+%\usepackage[dvips]{graphicx}    %grafiikka paketti eps-kuvia varten
+%\usepackage[pdftex]{graphicx}  %grafiikkapaketti jpg- yms. kuvia varten.
+%\usepackage{psfrag}             %korvaa ps-fontteja
+%\usepackage{dsfont}
+\usepackage{amsfonts}           % AMS-paketteja
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{eurosym}            %euro-merkki \euro -komennolla
+\pagestyle{plain}
+\setlength\arraycolsep{2pt}
+\usepackage{titleps}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\fancyhf{}
+\fancyhead[L]{\rightmark}
+\fancyhead[R]{\leftmark}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{LUMA-keskus Suomi}
+\fancyfoot[R]{Arduino-paketti}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+% \newpagestyle{fancy}{
+%   \setheadrule{.4pt}% Header rule
+%   \setfootrule{.4pt}% Footer rule
+%   \sethead[\rightmark]% odd-left
+%           []% odd-center
+%           [\chaptertitle]% odd-right
+%           {\chaptertitle}% even-left
+%           {}% even-center
+%           {\rightmark}% even-right
+%   \setfoot[Arduino-paketti]% odd-left
+%           [\thepage]% odd-center
+%           [LUMA-keskus Suomi]% odd-right
+%           {LUMA-keskus Suomi}% even-left
+%           {\thepage}% even-center
+%           {Arduino-paketti}% even-right
+% }
+
+
+% \newcommand{\veps}{\varepsilon}   %usein käytettyjen komentojen lyhenteitä
+% \newcommand{\R}{\mathds{R}}
+% \newcommand{\Z}{\mathds{Z}}
+% \newcommand{\N}{\mathds{N}}        %lukujoukot
+% \newcommand{\C}{\mathds{C}}
+% \newcommand{\Q}{\mathds{Q}}
+% \newcommand{\ekv}{\Leftrightarrow}  %ekvivalenssinuoli
+% \newcommand{\imp}{\Rightarrow}       %implikaationuoli
+
+
+% \newcommand{\viiva}{\mathop{\bigg/}}
+% \newcommand{\sij}[3]{\viiva\limits_{\hspace*{-5mm}{#1}}^{\hspace*{5mm}{#2}}{#3}}
+% % Suomalaiset sijoitusmerkit saadaan nyt komennolla \sij{a}{b}{F(x)}
+
+% %\def\sij#1#2{\Big/_{\!\!\!#1}^{\,#2}\,}      % Suomalaiset sijoitusmerkit saadaan nyt komennolla
+% %\def\Sij#1#2{\Bigg/_{\!\!\!\!\!\!#1}^{#2}}   % \sij^{yläraja}_{alaraja} tai \Sij^{yläraja}_{alaraja}
+
+% \newenvironment{todistus}
+% {\noindent{\it Todistus. }}{\hfill $\Box$\par\vspace{2.5mm}}  %todistus saadaan nyt \begin{todistus} \end{todistus} -komennolla
+
+% \theoremstyle{plain}
+% \newtheorem{lause}{Lause}[section]      %lauseiden yms. numerointi on päälukujen mukaan esim. Lause 2.1
+% %\newtheorem{lause}{Lause}[subsection]   %lauseiden yms. numerointi on alalukujen mukaan esim. Lause 2.1.1
+% \newtheorem{lemma}[lause]{Lemma}
+% \newtheorem{propositio}[lause]{Propositio}    %ja toimii juoksevana
+%                                         %näissä kaikissa joissa keskellä [lause]
+% \newtheorem{seuraus}[lause]{Seuraus}        %perässä on lyhenteet, joilla saadaan
+%                                         %aloitus- ja lopetusmerkit
+% \theoremstyle{definition}
+% \newtheorem{määritelmä}[lause]{Määritelmä}
+% \newtheorem{konjektuuri}[lause]{Konjektuuri}
+% \newtheorem{esimerkki}[lause]{Esimerkki}
+
+% \theoremstyle{remark}
+% \newtheorem{huomautus}[lause]{Huomautus}
+
+% \numberwithin{equation}{section}        % numeroi yhtälöt kappaleittain. Jos vaihdat section tilalle subsection,
+%                                         % niin numerointi alakappaleittain
+
+% %\usepackage{makeidx}                    % nämä rivit mahdollistavat hakemiston luomisen
+% %\makeindex                              % Jos sana halutaan hakemistoon, laitetaan sen perään komento\index{sana}
+%                                         % Hakemistoa käytetään ainakin kirjoissa ja silloin jos työ on hyvin laaja
+% %\addto\captionsfinnish{%
+%   %\renewcommand{\figurename}{Figure}%
+% %	\renewcommand{\refname}{Lähteet}%
+% %}
+\addto\captionsfinnish{\renewcommand{\refname}{Lähteet}}
+
+\usepackage{tikz} %kuvatyökalupaketti
+
+\usepackage{fancybox} %laatikkokehykset tekstiin
+\newenvironment{fminipage}% luo minipage-ympäristön käytettäväksi komennolla \begin{fminipage}{2in} ... \end{fminipage}
+{\begin{Sbox}\begin{minipage}}%
+{\end{minipage}\end{Sbox}\fbox{\TheSbox}}
+\usepackage{xcolor} %väripaketti, tunnistaa esim. blue!20
+\usepackage[most]{tcolorbox}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \huge\bfseries \thechapter.\ % <-- Chapter # (without "Chapter")
+    \fi
+    \interlinepenalty\@M
+    #1\par\nobreak% <------------------ Chapter title
+    \vskip 20\p@% <------------------ Space between chapter title and first paragraph
+  }}
+\makeatother
+
+% %%%%%% Arduino coding settings
+\input{ArduinoLanguage.tex} 
+\usepackage{accsupp}
+\newcommand{\noncopynumber}[1]{%
+    \BeginAccSupp{method=escape,ActualText={}}%
+    #1%
+    \EndAccSupp{}%
+}
+
+\lstset {%
+    numbers = left,%
+    numberstyle=\noncopynumber,
+    frame=single,
+    language=Arduino,
+    showstringspaces=false
+}
+%%%%%%%%%%
+\usepackage{comment}
+\usepackage{tcolorbox}
+% Make ourselves a new conditional
+% Use \HideSolutionstrue to "activate" it
+\newif\ifHideSolutions
+% Make a solution environment
+\generalcomment{solution}{%
+  \begingroup
+  \ifHideSolutions%
+  % if \HideSolutionstrue is called, then we remove the contents
+  \def\ProcessCutFile{}\fi%
+}{%
+  \ifHideSolutions%
+    % aand,now (also when it's not called), we make a box
+    % and then we \input the \CommentCutFile.
+    \phantom{\input{\CommentCutFile}}
+    %\setbox1=\vbox{\input{\CommentCutFile}}%
+    % Get the height from \ht1 and use \vskip to make appropriate space
+    %\vskip\ht1
+  \fi
+\endgroup%
+}
+%%%%%%%%%%%%%%%%
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+
+\input{arduino_breadboard}
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={3.0},
+]{doclicense}
+%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%
+
+%Uncomment below to hide solutions
+% Kommentoituna näyttää ratkaisut
+% Poista kommenttimerkki, niin et näe ratkaisuja
+
+%\HideSolutionstrue
+
+
+\title{Arduino-paketti yläkouluun ja lukioon}
+\author{}
+\date{}
+
+
+\begin{document}
+
+\begin{titlepage}
+%\includegraphics[width=\paperwidth,height=\paperheight,%
+%keepaspectratio]{kuvat/kansikuva.pdf}%
+\begin{tikzpicture}[remember picture,overlay]
+%\shadedraw[inner color=orange!70!white,outer color=yellow!30!white] (current page.center) circle (5cm) node {\Huge \textbf{Title of the project}};
+\path (current page.south) +(-8,+5) coordinate (B);
+\node[above right,draw=none,fill=none] at (B) {\includegraphics[bb=0 0 0 0]{kuvat/kansikuva.pdf}};
+\path (current page.north) +(0,-5) coordinate (A);
+\node at (A) {\Huge{Arduino-paketti yläkouluun ja lukioon}};
+\end{tikzpicture}
+
+\end{titlepage}
+
+\pagestyle{plain}
+%%%%%%%%%%%% Käyttölisenssi
+\begin{tcolorbox}[title = Käyttölisenssi]
+Tämä materiaali rakentaa ja muokkaa Arduinon Projects Book:n ohjeita, jotka on lisensoitu Nimeä-EiKaupallinen-JaaSamoin 3.0 Ei sovitettu (CC BY-NC-SA 3.0) (Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)). 
+
+
+Alkuperäinen tekijä: \url{arduino.cc} 
+
+Muokkaajat: Heli Virtanen ja Pekka Muotka
+
+Materiaalin testaajat ja kommentoijat: Janne Rantanen ja Ilkka Palonen
+
+Alkuperäisen materiaalin lisensin mukaisesti, myös tämän materiaalipaketin materiaaleja voi käyttää lisenssin CC BY-NC-SA 3.0 mukaisesti. 
+
+\doclicenseThis
+
+\tcblower
+Lisäksi ideoita ja inspiraatiota materiaalin pohjaksi ovat antaneet LUMA-keskus Saimaan sekä Aalto-yliopiston Arduino-materiaalit. 
+
+\url{https://act.aalto.fi/fi/aalto-yliopisto-junior/materiaalit}
+
+Kiitokset myös tiedekasvatuskurssin opiskelijoille L. Sihvonen ja M. Moilanen. 
+
+%\url{https://www.lut.fi/yhteistyo-ja-palvelut/luma-keskus}
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=Taustaa]
+Tämä materiaali on tehty LUMA-keskus Suomen sekä kehittäjäkoulujen kanssa yhteistyössä lukuvuoden 2021-2022 aikana. 
+
+Materiaalia kehitettiin koulujen toiveiden pohjalta ja kehittämisyhteistyö jatkuu edelleen. 
+
+\tcblower
+Paketista julkaistaan kesän 2022 LUMA-päivien yhteydessä versio, jota tullan myöhemmin täydentämään. LUMA-keskus Suomen sivuilta löytyy koko materiaali käyttövalmiina PDF-tiedostona ja lisäksi siellä on linkki kehitysversioon. Tämä versio on tarkoitettu erityisesti sähköisesti käytettäväksi ja täytettäväksi, mutta toimii myös paperiversiona.
+\end{tcolorbox}
+
+\begin{center}
+\includegraphics[width=0.3\textwidth]{kuvat/luma_flower-multicolored_text-black-vertical-fi.png}
+\end{center}
+
+\pagestyle{fancy}
+\tableofcontents
+
+\clearpage
+
+
+%\input{kappaleet/johdanto}
+%%%input{kappaleet/BLINK}
+%\input{kappaleet/sahkooppi}
+
+\input{kappaleet/virtapiiri-abc}
+\input{kappaleet/liikennevalot}
+
+\input{kappaleet/lampojavalo}
+\input{kappaleet/lcd}
+
+\appendix
+\input{kappaleet/kytkennat}
+\input{kappaleet/vinkitarduinoon}
+\input{kappaleet/varikoodit}
+
+
+
+
+\clearpage
+\pagestyle{plain}
+\pagenumbering{gobble}
+\begin{huge}
+Arduino-paketti yläkouluun ja lukioon
+\end{huge}
+
+
+\begin{itemize}
+    \item Koekytkentälevy
+    \item LED
+    \item Liikennevalot
+    \item Lämpö- ja valoanturit
+    \item LCD-näyttö
+    \item Kaltevuusanturi
+\end{itemize}
+
+\includegraphics[width=\textwidth]{kuvat/kansikuva_taka2022.jpg}
+
+
+\end{document}

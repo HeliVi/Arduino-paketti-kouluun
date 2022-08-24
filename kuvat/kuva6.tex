@@ -1,0 +1,30 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+\input{arduino_breadboard}
+\begin{document}
+
+\begin{tikzpicture}[scale=0.5]
+\pic[scale=0.2] at (0,0) {myarduino};
+\BREADBOARD(20,30){30};
+\draw (C10) to[R=$220\Omega$,*-*] (C15);
+\draw (B15) to[led,*-*] (B19);
+
+\draw[wire,red] (l-10) to[short,*-*] (A8);
+\draw[wire,black] (lg19) to[short,*-*] (A19);
+\draw[red,wire] (l-1) to[short,*-o] (Ar5V);
+\draw[black,wire] (lg30) to[short,*-o] (ArGND2);
+
+\draw[thick,fill=hopea] (E8.east) rectangle (F10.west) coordinate[pos=0.5] (Y);
+\draw[fill=black] (Y) circle (0.5);
+\draw (E10.east) to[short,*-*] (E10);
+\draw (E8.east) to[short,*-*] (E8);
+\draw (F8.west) to[short,*-*] (F8);
+\draw (F10.west) to[short,*-*] (F10);
+
+\end{tikzpicture}
+
+\end{document}

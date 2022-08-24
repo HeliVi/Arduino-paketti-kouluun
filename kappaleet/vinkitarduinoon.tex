@@ -1,0 +1,147 @@
+\chapter{Vinkit Arduinolla koodaamiseen}
+Tässä osuudessa on koottu yhteen kaikki vinkit paketin osalta.
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+Seuraavassa esitellään Arduinolla koodaamiseen liittyviä vinkkejä. 
+\begin{lstlisting}
+// Kaksi kauttaviivaa aloittaa kommentin. Tata ei siis lueta koodissa vaan on tiedoksi koodin lukijalle
+
+pinMode(luku, tyyppi) // Talla voit saataa pinnien 0-13 tekoa laittamalla sanan luku tilalle luvun jolta rivilta haluat komentaa
+// Tyypin tilalle voit kirjoittaa joko OUTPUT eli Arduino lahettaa signaalia
+// tai INPUT jolloin Arduino vastaanottaa signaalin
+
+digitalWrite(luku, arvo) // Talla voit muuttaa pinniin luku kirjoitettua arvoa
+// arvo HIGH vastaa 5V jannitetta
+// arvo LOW vastaa 0V jannitetta
+
+delay(luku) // Odottaa luvun verran millisekunteja
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+\begin{lstlisting}
+muuttuja = digitalRead(luku); // Lukee pinnin luku arvon ja tallentaa sen muuttujaan muuttuja
+// Huomaa etta muuttujalla pitaa olla annettuna tyyppi
+// Esimerkiksi bool:
+bool muuttuja = digitalRead(luku); 
+// bool voi olla joko HIGH tai LOW sen mukaan mita tassa tapauksessa luettiin piirista
+// bool on kateva tilanteissa joissa arvo on joko HIGH tai LOW
+
+// Ehtorakenne
+// Tarkastetaan muuttujan arvo.
+if (muuttuja == HIGH) {
+   // jos muuttujan arvo on HIGH tehdaan koodi tassa valissa
+} else {
+   // muuten (eli kun LOW) tehdaan mita tassa kirjoitetaan
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+\begin{lstlisting}
+bool ledStatus = true; // Luodaan muuttuja, jonka arvo on totta
+
+ledStatus = !ledStatus; // Muuttaa muuttujan ledStatus arvoksi arvon epatosi (jos arvo oli tosi) tai tosi (jos arvo oli epatosi)
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+\begin{lstlisting}
+// Seuraava rivi lisataan setup() funktioon
+attachInterrupt(digitalPinToInterrupt(luku), keskeytys, FALLING);
+// attachInterrupt on komento jolla luodaan keskeytys
+// digitalPinToInterrupt(luku) kertoo mista pinnista saadaan painallus
+// keskeytys on aliohjelmanne nimi, johon siirrytaan
+// FALLING on parametri joka tarkoittaa kun nappia painetaan alas
+// Vaihtoehtona ovat myos
+// LOW kun pinnin luku jannite on 0V
+// CHANGE kun pinnin luku jannite muuttuu
+// RISING kun pinnin tila muuttuu nollasta viiteen volttiin
+// FALLING kun pinnin tila muuttuu viidesta voltista nollaan
+
+// Maaritetaan uusi funktio olemassa olevien peraan
+void keskeytys() {
+  // Mita funktio tekee?
+  // Esimerkiksi vaihtaa muuttujan ledState arvo:
+  ledState = !ledState;
+}
+// Talloin ohjelman alussa pitaa olla maaritys
+volative bool ledState = false;
+// volative tarkoittaa, etta muuttujan arvo tarkastetaan aina sita kaytettaessa
+// muuttujan ledState arvo voi siis muuttua milloin vain ohjelman aikana
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+\begin{lstlisting}
+// Seuraava rivi kuuluu setup()-funktion sisalle
+Serial.begin(9600); // Aloittaa kommunnikoinnin tietokoneen kanssa
+// 9600 kertoo kuinka monta bittia sekunnissa lahetetaan.
+
+// Komentoja, joilla voidaan tulostaa
+Serial.print(muuttuja); // Tulostetaan muuttujan muuttuja arvo
+Serial.print("Teksti:"); // Tulostetaan Teksti: 
+Serial.println(muuttuja); // Sama kuin muuttujan tulostus, mutta rivinvaihto lopussa
+Serial.print("\n"); // Rivinvaihto manuaalisesti
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+\begin{lstlisting}
+// Halutaan tehda monta asiaa riippuen monesta asiasta
+if (ehto) {
+    // Mita tehdaan jos ehto patee
+} else if (ehto2) {
+    // Mita tehdaan jos ehto2 patee
+} else if (ehto3) {
+   // Naita voit lisata niin monta kuin tarvitset
+} else {
+    // Ja halutessa voit maaritella myos mita tehdaan muulloin
+}
+
+// Erilaisia ehtoja
+muuttuja < luku // Muuttujan muuttuja arvo on pienempi kuin annettu luku
+muuttuja <= luku // Muuttujan muuttuja arvo on pienempi tai yhta suuri kuin luku
+muuttuja > luku // Muuttuja on suurempi kuin luku
+// Kaksi ehtoa yhta aikaa
+muuttuja >= luku1 && muuttuja < luku2 // Muuttuja on suurempi tai yhtasuuri kuin luku1 JA pienempi kuin luku2
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+\begin{lstlisting}
+// Satunnaisen luvun arpominen
+int satunnainen = random(luku); //  satunnainen kokonaisluku valilta 0-annettu luku
+// Ehtolause: ei yhta suuri kuin
+luku1 != luku2
+// Vaihtoehtoisia tapauksia
+switch(luku) {
+    case 0:
+    // mita tehdaan jos luku on nolla
+    break; // lopetetaan
+    case 1: 
+    // kun luku on 1
+    break;
+    // Lisaa case numero: riveja niin monta yhteensa kuin lukusi on ja kerro mita tehdaan, ja poistu sen jalkeen ulompaan koodiin break:n avulla
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white,title=Vinkkejä Arduinolla koodaamiseen!,colbacktitle=purple!90, breakable]
+\begin{lstlisting}
+// Satunnaisen luvun arpominen
+int satunnainen = random(luku); //  satunnainen kokonaisluku valilta 0-annettu luku
+// Ehtolause: ei yhta suuri kuin
+luku1 != luku2
+// Vaihtoehtoisia tapauksia
+switch(luku) {
+    case 0:
+    // mita tehdaan jos luku on nolla
+    break; // lopetetaan
+    case 1: 
+    // kun luku on 1
+    break;
+    // Lisaa case numero: riveja niin monta yhteensa kuin lukusi on ja kerro mita tehdaan, ja poistu sen jalkeen ulompaan koodiin break:n avulla
+}
+\end{lstlisting}
+\end{tcolorbox}

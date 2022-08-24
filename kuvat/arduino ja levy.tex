@@ -1,0 +1,135 @@
+\documentclass[margin=5mm]{standalone}
+\usepackage{xcolor,circuitikz,tikz}
+\usetikzlibrary{calc,intersections,positioning}
+\definecolor{darkcerulean}{rgb}{0.03, 0.27, 0.49}
+\definecolor{rgreen}{HTML}{228b22}
+\tikzset{%
+myarduino/.pic={
+\coordinate (A) at (0,0);
+\filldraw[rgreen] (A)--++(4,0)--++(2,-1)--++(8,0)--++(2,1)++(4,0)-|++(0,40)--++(-20,0)-|++(0,-40)--cycle;
+\filldraw[very thick,black](1,39) rectangle (4,42);
+\filldraw[very thick,gray!40](9,38) rectangle (12.5,43);
+
+\foreach \x/\t in {9/Vin,10/GND1,11/GND2,12/5V,13/3.3V,14/RESET,15/IOREF}{
+\node (A\t) at (1,2*\x) [fill=black,draw]{};
+\node at (1,2*\x) [right=0.5]{$\mathbf{\t}$};}
+
+\foreach \x/\n in {1/A5,2/A4,3/A3,4/A2,5/A1,6/A0}{
+\node (A\n) at (1,2*\x) [fill,draw]{};
+\node at (1,2*\x) [right=3mm]{$\mathbf{\n}$};}
+
+\foreach \x/\n in {1/0,2/1,3/2,4/3,5/4,6/5,7/6,8/7,10/8,11/9,12/10,13/11,14/12,15/13,16/GD3,17/AREF,18/SDA,19/SCL}{
+\node (A\n) at (18,2*\x) [fill,draw,minimum width=3mm,minimum height=3mm]{};
+\node at (18,2*\x) [left=0.5]{$\mathbf{\n}$};}
+}}
+
+
+\tikzset{% Environment Config
+    font=\small,
+    open socket/.style = {
+        circle,
+        fill = lightgray,
+        draw = lightgray,
+        inner sep = 1pt
+    },
+    filled socket/.style = {
+        circle,
+        fill = black,
+        draw = lightgray,
+        inner sep = 1pt
+    },
+    strip/.style = {
+        opacity = 0.1,
+        line cap = round,
+        line join = round,
+        line width = 6pt
+    },
+    wire/.style = {
+        decorate,
+        decoration = {
+            random steps,
+            amplitude = 2pt,
+            segment length = 0.2in
+        },
+        line cap = round,
+        line join = round,
+        line width = 2pt
+    }
+}
+
+
+% You can create an smart objet like Henri Menke in this post:
+% --> http://www.texample.net/tikz/examples/4-bit-counter/
+% Variables: 1: Position 2: Lines.
+\def\BREADBOARD(#1)#2{%
+    \begin{scope}[shift={(#1)}]
+        \foreach \y [evaluate = \y as \line using int(abs(\y))]
+                 in {-1,-2,-3,...,-#2}{%% draw breadboard sections
+
+            % draw bus and breadboard grid sockets
+            \foreach \lab/\x in {
+                    l-/-9.5, lg/-8.5,       % power strips on left side
+                    A/-5.5, B/-4.5, C/-3.5, D/-2.5, E/-1.5, % left side
+                    F/1.5, G/2.5, H/3.5, I/4.5, J/5.5,     % right side
+                    r+/8.5, rg/9.5         % power strips on right side
+            } {
+                \coordinate [open socket] (\lab\line) at (\x, \y);
+            }
+
+            % draw row connectivity for board proper
+            \begin{scope} [% these paths should not interfere with anything else
+                on background layer
+            ]
+                \draw [strip,gray]
+                    (A\line.west) -- (E\line.east)
+                    (F\line.west) -- (J\line.east);
+            \end{scope}
+
+            % draw line numbers off to the left
+            \node [left of = l-\line,text=gray] {\line};
+            \node [right of = rg\line,text=gray] {\line};
+        }
+
+        % draw bus connection lines
+        \begin{scope} [% these paths should not interfere with anything else
+            on background layer
+        ]
+            \draw [strip,red]  (l-1.north) -- (l-#2.south);
+            \draw [strip,black] (lg1.north) -- (lg#2.south);
+        
+            \draw [strip,red]  (r+1.north) -- (r+#2.south);
+            \draw [strip,black] (rg1.north) -- (rg#2.south);
+        \end{scope}
+
+        % label breadboard columns (top/bottom)
+        \foreach \lab/\x in {
+                A/-5.5, B/-4.5, C/-3.5, D/-2.5, E/-1.5, % left side
+                F/1.5, G/2.5, H/3.5, I/4.5, J/5.5      % right side
+        } {
+            \node [above of = \lab1] {\lab};
+            \node [below of = \lab#2] {\lab};
+        }
+
+        % label buses (top)
+        \node [above of=l-1,red] {\Large{${+}$}};
+        \node [above of=lg1,black] {\Large{${-}$}};
+        \node [above of=r+1,red] {\Large{${+}$}};
+        \node [above of=rg1,black] {\Large{${-}$}};
+        % label buses (bottom)
+        \node [below of=l-#2,red] {\Large{${+}$}};
+        \node [below of=lg#2,black] {\Large{${-}$}};
+        \node [below of=r+#2,red] {\Large{${+}$}};
+        \node [below of=rg#2,black] {\Large{${-}$}};
+    \end{scope}
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.5]
+\ctikzset{european resistor}
+\pic[scale=0.4] at (0,0) {myarduino};
+\BREADBOARD(30,30){30};
+\draw (B5) to[R,*-*] (B9);
+\draw[blue,wire] (l-1) to[short,*-o] (A5V);
+\draw[blue,wire] (A9) to[short,*-o] (AGND2);
+\end{tikzpicture}
+\end{document}

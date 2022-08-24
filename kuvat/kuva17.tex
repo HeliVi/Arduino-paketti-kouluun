@@ -1,0 +1,25 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shadings,backgrounds,scopes}
+\usetikzlibrary{calc,intersections,positioning}
+\input{arduino_breadboard}
+\begin{document}
+
+\begin{tikzpicture}[scale=0.5]
+\BREADBOARD (0,0) {5};
+\draw[thick,fill=blue] (D2.east) rectangle (F4.west) coordinate[pos=0.5] (Y);
+\draw[fill=white] (Y) circle (0.5);
+\draw (D2.east) to[short,*-*] (D2);
+\draw (D4.east) to[short,*-*] (D4);
+\draw (F3.west) to[short,*-*] (F3);
+
+\draw[wire,red] (A2) to[short,*-o] ++(-7,0) node[left,black] {ylä};
+\draw[wire,red] (A4) to[short,*-o] ++(-7,0) node[left,black] {ala};
+\draw[wire,blue] (J3) to[short,*-o] ++(7,0) node[right,black] {keski};
+
+\end{tikzpicture}
+
+
+\end{document}

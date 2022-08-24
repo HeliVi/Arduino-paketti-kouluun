@@ -1,0 +1,37 @@
+\documentclass[margin=5mm]{standalone}
+\usepackage{xcolor,circuitikz,tikz}
+\usetikzlibrary{calc,intersections,positioning}
+\definecolor{darkcerulean}{rgb}{0.03, 0.27, 0.49}
+\definecolor{rgreen}{HTML}{228b22}
+\tikzset{%
+myarduino/.pic={
+\coordinate (A) at (0,0);
+\filldraw[rgreen] (A)--++(4,0)--++(2,-1)--++(8,0)--++(2,1)++(4,0)-|++(0,40)--++(-20,0)-|++(0,-40)--cycle;
+\filldraw[very thick,black](1,39) rectangle (4,42);
+\filldraw[very thick,gray!40](9,38) rectangle (12.5,43);
+
+\foreach \x/\t in {9/Vin,10/GND1,11/GND2,12/5V,13/3.3V,14/RESET,15/IOREF}{
+\node (A\t) at (1,2*\x) [fill=black,draw]{};
+\node at (1,2*\x) [right=0.5]{$\mathbf{\t}$};}
+
+\foreach \x/\n in {1/A5,2/A4,3/A3,4/A2,5/A1,6/A0}{
+\node (A\n) at (1,2*\x) [fill,draw]{};
+\node at (1,2*\x) [right=3mm]{$\mathbf{\n}$};}
+
+\foreach \x/\n in {1/0,2/1,3/2,4/3,5/4,6/5,7/6,8/7,10/8,11/9,12/10,13/11,14/12,15/13,16/GD3,17/AREF,18/SDA,19/SCL}{
+\node (A\n) at (18,2*\x) [fill,draw,minimum width=3mm,minimum height=3mm]{};
+\node at (18,2*\x) [left=0.5]{$\mathbf{\n}$};}
+}}
+
+
+
+\begin{document}
+\begin{tikzpicture}[x=2mm,y=2mm]
+\pic at (0,0) {myarduino};
+\draw[very thick] (AGND1)--++(-9,0);
+\draw[very thick] (ARESET)--++(-9,0);
+\draw[very thick] (AA1)--++(-9,0);
+\draw[very thick] (AA4)--++(-9,0);
+\end{tikzpicture}
+
+\end{document}
